@@ -6,9 +6,28 @@
 		<UseWPF>true</UseWPF>
 		<PackageOutputPath>C:\Users\msenturk\Documents\Pack</PackageOutputPath>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-		<Version>1.0.0.1</Version>
+		<Version>1.0.1</Version>
 		<Deterministic>False</Deterministic>
+		<Description>WPF Floating-Point Input Controls library. Contains double value input controller only for now.</Description>
+		<PackageReadmeFile>Readme.md</PackageReadmeFile>
+		<RepositoryUrl>https://github.com/kzlsahin/floating-point-controls</RepositoryUrl>
+		<PackageIcon>icon.png</PackageIcon>
+		<RepositoryType>git</RepositoryType>
+		<PackageTags>WPF;FloatingPoint;InputControl;DoubleInput</PackageTags>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+		<IncludeSymbols>True</IncludeSymbols>
 	</PropertyGroup>
+	<ItemGroup>
+	  <None Include="..\icon.png">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	  <None Include="..\Readme.md">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	</ItemGroup>
 
 	<ItemGroup>
 		<Compile Update="Properties\Settings.Designer.cs">

@@ -20,23 +20,47 @@ namespace FloatingPointControls
         public static readonly DependencyProperty MaxDecimalPlaces =
         DependencyProperty.Register("MaxAllowedDecimalPlaces", typeof(double), typeof(DoubleInput), new PropertyMetadata(0.0, OnMaxDecimalPlacesChanged));
 
-
+        /// <summary>
+        /// Sets maximum allowed decimal places of the controller that creates formatting string as "F.".
+        /// </summary>
+        /// <remarks>
+        /// This doesn't prevent user to exceed this limit. When value property is changed the output text will be affected by this value.
+        /// Default value for format string is "F2"
+        /// </remarks>
         public int? MaxAllowedDecimalPlaces { get; set; }
 
+        /// <summary>
+        /// Sets boolean value to trim trailing zeros after the last meaningful decimal place or decimal seperator.
+        /// </summary>
         public bool TrimTrailingZerosAfterDecimal = true;
-
+        /// <summary>
+        /// format string used to stringify the Value.
+        /// </summary>
         protected string _formatString { get; set; } = "F2";
+        /// <summary>
+        /// Decimal seperator of the current culture
+        /// </summary>
         protected string _decimalSeperator => CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator;
+        /// <summary>
+        /// Text is modified by Text property, don't handle TextInput
+        /// </summary>
         protected bool _localTextUpdate = false;
+        /// <summary>
+        /// this control is handling TextInput event.
+        /// </summary>
         protected bool _inTextInput = false;
         public DoubleInput()
         {
             InitializeComponent();
         }
+        /// <summary>
+        /// When the text is changed and the text is parsable as Double.
+        /// </summary>
         public event EventHandler? InputEntered;
-        public event PropertyChangedEventHandler? PropertyChanged;
 
-
+        /// <summary>
+        /// Value of the Value property.
+        /// </summary>
         public double Value
         {
             get => (double)GetValue(ValueProperty);
@@ -48,7 +72,9 @@ namespace FloatingPointControls
                 }
             }
         }
-        // Expose Text property for easy access
+        /// <summary>
+        /// Exposes the Text value of the underneath TextBox
+        /// </summary>
         public string Text
         {
             get { return textBox.Text; }
@@ -64,19 +90,24 @@ namespace FloatingPointControls
                 }
             }
         }
+        /// <summary>
+        /// Check input preview, accept only allowed characters.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void NumericTextBox_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
         {
-            if (!IsNumericTextAllowed(e.Text))
+            if (!IsCharacterAllowed(e.Text))
             {
                 e.Handled = true;
             }
         }
-        protected bool DecimalPlacesAvailable()
-        {
-            string decimalPart = Text.Split(_decimalSeperator).Last();
-            return decimalPart.Length < MaxAllowedDecimalPlaces;
-        }
-        protected bool IsNumericTextAllowed(string text)
+        /// <summary>
+        /// Character check method.
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns>true if character is allowed, false otherwise</returns>
+        protected bool IsCharacterAllowed(string text)
         {
             // Check if the entered text is a valid numeric value (allow '.' as well)
             char lastEntry = text[text.Length - 1];
@@ -85,6 +116,11 @@ namespace FloatingPointControls
                 || (Text.Length == 0 && lastEntry == '-')
                 || Char.IsDigit(lastEntry);
         }
+        /// <summary>
+        /// If not _inTextInput, updates Value according to parsed Text.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void NumericTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             _inTextInput = true;
@@ -100,6 +136,10 @@ namespace FloatingPointControls
             }
             _inTextInput = false;
         }
+        /// <summary>
+        /// Updates Text property only if nTextInput is false.
+        /// </summary>
+        /// <param name="newValue"></param>
         protected void OnValueChanged(double? newValue)
         {
             if (_inTextInput) 
@@ -114,7 +154,7 @@ namespace FloatingPointControls
                 Text = txt;
             }
         }
-        protected static void OnValuePropertyChanged(object dependencyObject, DependencyPropertyChangedEventArgs e)
+        private static void OnValuePropertyChanged(object dependencyObject, DependencyPropertyChangedEventArgs e)
         {
             if (dependencyObject is DoubleInput)
             {
