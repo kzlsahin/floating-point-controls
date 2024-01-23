@@ -1,0 +1,171 @@
+﻿<Window x:Class="MarineParamCalculatorDataBindings.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MarineParamCalculatorDataBindings"
+        xmlns:controls="clr-namespace:FloatingPointControls;assembly=FloatingPointControl"
+        mc:Ignorable="d"
+        Title="Ship Hull Principles Calculator" Height="450" Width="340">
+    <Window.Resources>
+        <BitmapImage x:Key="Logo" UriSource="/Image/Sail_sq.png" />
+        <local:Model x:Key="ContextModel" />
+        <local:DoubleStringConverter x:Key="DoubleStringConverter"/>
+        <Style x:Key="GridRowStyle1" TargetType="ItemsControl" >
+            <Setter Property="ItemsPanel">
+                <Setter.Value>
+                    <ItemsPanelTemplate>
+                        <Grid Margin="4">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                        </Grid>
+                    </ItemsPanelTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="GridColumnStyle1" TargetType="ItemsControl" >
+            <Setter Property="ItemsPanel">
+                <Setter.Value>
+                    <ItemsPanelTemplate>
+                        <Grid Margin="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="5*"/>
+                            </Grid.ColumnDefinitions>
+                        </Grid>
+                    </ItemsPanelTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="LabelStyle" TargetType="Label">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontStyle" Value="Italic"/>
+            <Setter Property="FontFamily" Value="TimesNewRoman" />
+            <Setter Property="Height" Value="Auto" />
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+        </Style >
+        <Style x:Key="DoubleInputStyle" TargetType="Control">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontStyle" Value="Normal"/>
+            <Setter Property="FontFamily" Value="TimesNewRoman" />
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Height" Value="Auto" />
+        </Style >
+        <Style x:Key="DescriptionStyle" TargetType="Label">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontStyle" Value="Normal"/>
+            <Setter Property="FontFamily" Value="TimesNewRoman" />
+            <Setter Property="Height" Value="Auto" />
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style >
+    </Window.Resources>
+    <Window.InputBindings>
+        <KeyBinding Key="O"
+              Modifiers="Control" 
+              Command="ApplicationCommands.Open" />
+    </Window.InputBindings>
+    <Window.CommandBindings>
+        <CommandBinding x:Name="OpenCommandBinding"
+            Command="ApplicationCommands.Open"
+            CanExecute="OpenCommandBinding_CanExecute"
+            Executed="OpenCommandBinding_Executed"/>
+        <CommandBinding x:Name="SaveasCommandBinding"
+                        Command="ApplicationCommands.Save"
+                        CanExecute="SaveasCommandBinding_CanExecute"
+                        Executed="SaveasCommandBinding_Executed" />
+    </Window.CommandBindings>
+    <Window.DataContext>
+        <Binding Source="{StaticResource ContextModel}" />
+    </Window.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0" FontSize="16" FontWeight="Bold" HorizontalContentAlignment="Center" Background="Beige">
+            <Grid Height="Auto" x:Name="PageLabelGrid" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Image Source="{StaticResource Logo}" Height="{Binding ActualHeight, ElementName=PageLabel}" Stretch="Uniform" />
+                <TextBlock Grid.Column="1" x:Name="PageLabel" Margin="4,2,4,2">Ship Hull Principles Calculator</TextBlock>
+            </Grid>
+        </Label>
+        <ToolBarTray Grid.Row="1">
+            <ToolBar>
+                <Button FontSize="12" Command="ApplicationCommands.Save">SaveAs</Button>
+                <Button FontSize="12" Command="ApplicationCommands.Open">Open</Button>
+            </ToolBar>
+        </ToolBarTray>
+       
+        <ItemsControl Grid.Row="2" Style="{StaticResource GridRowStyle1}">
+            <ItemsControl Grid.Row="0"  Style="{StaticResource GridColumnStyle1}">
+                <Label Grid.Column="0" Content="B =" Style="{StaticResource LabelStyle}"/>
+                <controls:DoubleInput 
+                    Grid.Column="1" 
+                    MaxAllowedDecimalPlaces ="3"
+                    Value="{Binding B,  Mode=TwoWay}"
+                    Style="{StaticResource DoubleInputStyle}"/>
+            </ItemsControl>
+            <ItemsControl Grid.Row="1"  Style="{StaticResource GridColumnStyle1}">
+                <Label Grid.Column="0" Content="L =" Style="{StaticResource LabelStyle}"/>
+                <controls:DoubleInput 
+                    Grid.Column="1" 
+                    Value="{Binding L,  Mode=TwoWay}" 
+                    Style="{StaticResource DoubleInputStyle}"/>
+            </ItemsControl>
+            <ItemsControl Grid.Row="2"  Style="{StaticResource GridColumnStyle1}">
+                <Label Grid.Column="0" Content="T =" Style="{StaticResource LabelStyle}"/>
+                <controls:DoubleInput 
+                    Grid.Column="1" 
+                    Value="{Binding T,  Mode=TwoWay}"
+                    Style="{StaticResource DoubleInputStyle}"/>
+            </ItemsControl>
+            <ItemsControl Grid.Row="3"  Style="{StaticResource GridColumnStyle1}">
+                <Label Grid.Column="0" Content="CB =" Style="{StaticResource LabelStyle}"/>
+                <controls:DoubleInput 
+                    Grid.Column="1" 
+                    Value="{Binding Cb,  Mode=TwoWay}"
+                    Style="{StaticResource DoubleInputStyle}"/>
+            </ItemsControl>
+            <ItemsControl Grid.Row="4"  Style="{StaticResource GridColumnStyle1}">
+                <Label Grid.Column="0" Content="Δ =" Style="{StaticResource LabelStyle}"/>
+                <controls:DoubleInput 
+                    Grid.Column="1" 
+                    Value="{Binding Delta,  Mode=TwoWay}"
+                    Style="{StaticResource DoubleInputStyle}"/>
+            </ItemsControl>
+        </ItemsControl>
+        <StackPanel Grid.Row="3">
+            <ItemsControl Style="{StaticResource GridColumnStyle1}" >
+                <Label Grid.Column="0" Content="B :" Style="{StaticResource LabelStyle}"/>
+                <Label Grid.Column="1" Content="The breadth of the hull" Style="{StaticResource DescriptionStyle}"/>
+            </ItemsControl>
+            <ItemsControl Style="{StaticResource GridColumnStyle1}" >
+                <Label Grid.Column="0" Content="L :" Style="{StaticResource LabelStyle}"/>
+                <Label Grid.Column="1" Content="The Length of the hull" Style="{StaticResource DescriptionStyle}"/>
+            </ItemsControl>
+            <ItemsControl Style="{StaticResource GridColumnStyle1}" >
+                <Label Grid.Column="0" Content="T :" Style="{StaticResource LabelStyle}"/>
+                <Label Grid.Column="1" Content="Draught of the hull" Style="{StaticResource DescriptionStyle}"/>
+            </ItemsControl>
+            <ItemsControl Style="{StaticResource GridColumnStyle1}" >
+                <Label Grid.Column="0" Content="CB :" Style="{StaticResource LabelStyle}"/>
+                <Label Grid.Column="1" Content="Block coeff. of the hull" Style="{StaticResource DescriptionStyle}"/>
+            </ItemsControl>
+            <ItemsControl Style="{StaticResource GridColumnStyle1}" >
+                <Label Grid.Column="0" Content="Δ :" Style="{StaticResource LabelStyle}"/>
+                <Label Grid.Column="1" Content="Displacement of the hull" Style="{StaticResource DescriptionStyle}"/>
+            </ItemsControl>
+        </StackPanel>
+    </Grid>
+</Window>

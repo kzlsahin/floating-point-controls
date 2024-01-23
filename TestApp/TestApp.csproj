@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="CustomControls\**" />
+    <EmbeddedResource Remove="CustomControls\**" />
+    <None Remove="CustomControls\**" />
+    <Page Remove="CustomControls\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Image\Sail_sq.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FloatingPointControls\FloatingPointControl.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Image\Sail_sq.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+</Project>
