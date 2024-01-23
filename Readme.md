@@ -8,7 +8,7 @@ There is only a DoubleInput control currently.
 - Does not response and change the text if any char is entered other than the accepted ones.
 - Fires event when value is changed,
 - Value changes only when the text is parsable as a floating-point number.
-- suitible to be used with data binding even with “TwoWay” binding mode.
+- suitible to be used with data binding even with TwoWay binding mode.
 - Style properties such as, text size, text weight, alignment shall be accessible for customizable visual styling.
 - Maximum number of decimal places can bes set by XAML file.
 - - Can be set to trim trailing zeros after last meaningful deciaml digit or decimal seperator.

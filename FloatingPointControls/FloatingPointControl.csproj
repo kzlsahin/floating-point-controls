@@ -17,6 +17,9 @@
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
 		<IncludeSymbols>True</IncludeSymbols>
+		<Title>Floating-Point Controls - WPF</Title>
+		<Authors>kzlsahin</Authors>
+		<PackageProjectUrl>https://github.com/kzlsahin/floating-point-controls</PackageProjectUrl>
 	</PropertyGroup>
 	<ItemGroup>
 	  <None Include="..\icon.png">
