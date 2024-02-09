@@ -6,7 +6,7 @@
 		<UseWPF>true</UseWPF>
 		<PackageOutputPath>C:\Users\msenturk\Documents\Pack</PackageOutputPath>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-		<Version>1.0.2</Version>
+		<Version>1.0.2.1</Version>
 		<Deterministic>False</Deterministic>
 		<Description>WPF Floating-Point Input Controls library. Contains double value input controller only for now.</Description>
 		<PackageReadmeFile>Readme.md</PackageReadmeFile>
