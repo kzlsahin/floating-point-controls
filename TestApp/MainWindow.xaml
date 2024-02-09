@@ -167,7 +167,7 @@
                 <Label Grid.Column="1" Content="Displacement of the hull" Style="{StaticResource DescriptionStyle}"/>
             </ItemsControl>
             <Label>Take Notes!</Label>
-            <TextBlock Background="Black" Foreground="Beige" Padding="2,4,2,4"> </TextBlock>
+            <TextBox Background="Black" Foreground="Beige" Padding="2,4,2,4" IsEnabled="True"> </TextBox>
         </StackPanel>
     </Grid>
 </Window>
