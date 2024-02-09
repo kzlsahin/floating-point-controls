@@ -21,6 +21,7 @@
 		<Authors>kzlsahin</Authors>
 		<PackageProjectUrl>https://github.com/kzlsahin/floating-point-controls</PackageProjectUrl>
 		<PackageReleaseNotes>- Select all text when DoubleClick feature is added
+- Max. allowed decimal places bug is resolved.
 - Code quality is improved.</PackageReleaseNotes>
 	</PropertyGroup>
 	<ItemGroup>
