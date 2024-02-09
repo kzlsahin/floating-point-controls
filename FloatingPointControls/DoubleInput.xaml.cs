@@ -102,6 +102,14 @@ namespace FloatingPointControls
                 e.Handled = true;
             }
         }
+        protected void TextBox_MouseLeftDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ClickCount == 2)
+            {
+                e.Handled = true;
+                textBox.SelectAll();
+            }
+        }
         /// <summary>
         /// Character check method.
         /// </summary>

@@ -12,5 +12,6 @@
         Background="White" 
         TextChanged="NumericTextBox_TextChanged"
         Style="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=Style}"
-        VerticalAlignment="Center"/>
+        VerticalAlignment="Center"
+        PreviewMouseLeftButtonDown="TextBox_MouseLeftDown"/>
 </UserControl>
