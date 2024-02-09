@@ -19,9 +19,12 @@ There is only a DoubleInput control currently.
 [WPF Sample With Circular Dependent Inputs](https://github.com/kzlsahin/Workbench/tree/master/MarineParamCalculatorDataBindings)
 
 ```XML
-<!--xmlns:controls="clr-namespace:FloatingPointControls;assembly=FloatingPointControl" -->
+<Window ... 
+    xmlns:controls="clr-namespace:FloatingPointControls;assembly=FloatingPointControl" 
+... />
 <controls:DoubleInput 
             Grid.Column="1" 
             Value="{Binding T,  Mode=TwoWay}"
-            Style="{StaticResource DoubleInputStyle}" />
+            Style="{StaticResource DoubleInputStyle}"
+            MaxAllowedDecimalPlaces ="3"/>
 ```
