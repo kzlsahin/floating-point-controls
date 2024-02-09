@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace FloatingPointControls
 {
@@ -32,23 +33,23 @@ namespace FloatingPointControls
         /// <summary>
         /// Sets boolean value to trim trailing zeros after the last meaningful decimal place or decimal seperator.
         /// </summary>
-        public bool TrimTrailingZerosAfterDecimal = true;
+        protected bool TrimTrailingZerosAfterDecimal = true;
         /// <summary>
         /// format string used to stringify the Value.
         /// </summary>
-        protected string _formatString { get; set; } = "F2";
+        protected string FormatString { get; set; } = "F2";
         /// <summary>
         /// Decimal seperator of the current culture
         /// </summary>
-        protected string _decimalSeperator => CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator;
+        protected static string DecimalSeperator => CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator;
         /// <summary>
         /// Text is modified by Text property, don't handle TextInput
         /// </summary>
-        protected bool _localTextUpdate = false;
+        protected bool LocalTextUpdate = false;
         /// <summary>
         /// this control is handling TextInput event.
         /// </summary>
-        protected bool _inTextInput = false;
+        protected bool InTextInput = false;
         public DoubleInput()
         {
             InitializeComponent();
@@ -83,9 +84,9 @@ namespace FloatingPointControls
                 if (value != textBox.Text)
                 {
                     // prevent event feedback when the TExtBox is updated by this class
-                    _localTextUpdate = true;
+                    LocalTextUpdate = true;
                     textBox.Text = value;
-                    _localTextUpdate = false;
+                    LocalTextUpdate = false;
 
                 }
             }
@@ -95,7 +96,7 @@ namespace FloatingPointControls
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        protected void NumericTextBox_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        protected void TextBox_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
         {
             if (!IsCharacterAllowed(e.Text))
             {
@@ -118,9 +119,9 @@ namespace FloatingPointControls
         protected bool IsCharacterAllowed(string text)
         {
             // Check if the entered text is a valid numeric value (allow '.' as well)
-            char lastEntry = text[text.Length - 1];
+            char lastEntry = text[^1];
             return
-                (_decimalSeperator.Contains(lastEntry) && !Text.Contains(lastEntry))
+                (DecimalSeperator.Contains(lastEntry) && !Text.Contains(lastEntry))
                 || (Text.Length == 0 && lastEntry == '-')
                 || Char.IsDigit(lastEntry);
         }
@@ -129,20 +130,21 @@ namespace FloatingPointControls
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        protected void NumericTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        protected void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            _inTextInput = true;
-            if (_localTextUpdate == false)
+            if (LocalTextUpdate)
             {
-                // Text Changed by user input
-                // Check if the entered text is a valid numeric value
-                if (double.TryParse(Text, out double val))
-                {
-                    Value = val;
-                    InputEntered?.Invoke(this, e);
-                }
+                return;
             }
-            _inTextInput = false;
+            InTextInput = true;
+            // Text Changed by user input
+            // Check if the entered text is a valid numeric value
+            if (double.TryParse(Text, out double val))
+            {
+                Value = val;
+                InputEntered?.Invoke(this, e);
+            }
+            InTextInput = false;
         }
         /// <summary>
         /// Updates Text property only if nTextInput is false.
@@ -150,11 +152,11 @@ namespace FloatingPointControls
         /// <param name="newValue"></param>
         protected void OnValueChanged(double? newValue)
         {
-            if (_inTextInput) 
+            if (InTextInput)
                 return;
             if (newValue.HasValue)
             {
-                string txt = newValue.Value.ToString(_formatString);
+                string txt = newValue.Value.ToString(FormatString);
                 if (TrimTrailingZerosAfterDecimal)
                 {
                     txt = txt.TrimEnd('0');
@@ -162,19 +164,16 @@ namespace FloatingPointControls
                 Text = txt;
             }
         }
-        private static void OnValuePropertyChanged(object dependencyObject, DependencyPropertyChangedEventArgs e)
+        protected static void OnValuePropertyChanged(object dependencyObject, DependencyPropertyChangedEventArgs e)
         {
             if (dependencyObject is DoubleInput)
             {
                 DoubleInput? di = dependencyObject as DoubleInput;
-                if (di is not null)
-                {
-                    di.OnValueChanged(e.NewValue as double?);
-                }
+                di?.OnValueChanged(e.NewValue as double?);
             }
         }
 
-        private static void OnMaxDecimalPlacesChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        protected static void OnMaxDecimalPlacesChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             int? newValue = e.NewValue as int?;
             FieldInfo? fieldInfo = typeof(DoubleInput).GetField("_formatString");

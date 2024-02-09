@@ -7,10 +7,10 @@
              d:DesignHeight="20" d:DesignWidth="120">
     <TextBox 
         x:Name="textBox" 
-        PreviewTextInput="NumericTextBox_PreviewTextInput" 
+        PreviewTextInput="TextBox_PreviewTextInput" 
         BorderBrush="{x:Null}" 
         Background="White" 
-        TextChanged="NumericTextBox_TextChanged"
+        TextChanged="TextBox_TextChanged"
         Style="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=Style}"
         VerticalAlignment="Center"
         PreviewMouseLeftButtonDown="TextBox_MouseLeftDown"/>

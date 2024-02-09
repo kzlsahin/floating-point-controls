@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:MarineParamCalculatorDataBindings"
         xmlns:controls="clr-namespace:FloatingPointControls;assembly=FloatingPointControl"
         mc:Ignorable="d"
-        Title="Ship Hull Principles Calculator" Height="450" Width="340">
+        Title="Ship Hull Principles Calculator" Height="550" Width="340">
     <Window.Resources>
         <BitmapImage x:Key="Logo" UriSource="/Image/Sail_sq.png" />
         <local:Model x:Key="ContextModel" />
@@ -166,6 +166,8 @@
                 <Label Grid.Column="0" Content="Δ :" Style="{StaticResource LabelStyle}"/>
                 <Label Grid.Column="1" Content="Displacement of the hull" Style="{StaticResource DescriptionStyle}"/>
             </ItemsControl>
+            <Label>Take Notes!</Label>
+            <TextBlock Background="Black" Foreground="Beige" Padding="2,4,2,4"> </TextBlock>
         </StackPanel>
     </Grid>
 </Window>
