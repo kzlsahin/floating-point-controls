@@ -11,13 +11,15 @@ There is only a DoubleInput control currently.
 - suitible to be used with data binding even with TwoWay binding mode.
 - Style properties such as, text size, text weight, alignment shall be accessible for customizable visual styling.
 - Maximum number of decimal places can bes set by XAML file.
-- - Can be set to trim trailing zeros after last meaningful deciaml digit or decimal seperator.
+- Can be set to trim trailing zeros after last meaningful deciaml digit or decimal seperator.
+- Whole text is selected when the control is double-clicked.
 
 ### Example:
 
 [WPF Sample With Circular Dependent Inputs](https://github.com/kzlsahin/Workbench/tree/master/MarineParamCalculatorDataBindings)
 
-```
+```XML
+<!--xmlns:controls="clr-namespace:FloatingPointControls;assembly=FloatingPointControl" -->
 <controls:DoubleInput 
             Grid.Column="1" 
             Value="{Binding T,  Mode=TwoWay}"
