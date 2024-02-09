@@ -18,7 +18,7 @@ namespace FloatingPointControls
         public static readonly DependencyProperty ValueProperty =
         DependencyProperty.Register("Value", typeof(double), typeof(DoubleInput), new PropertyMetadata(0.0, OnValuePropertyChanged));
 
-        public static readonly DependencyProperty MaxDecimalPlaces =
+        public static readonly DependencyProperty MaxDecimalPlacesProperty =
         DependencyProperty.Register("MaxAllowedDecimalPlaces", typeof(double), typeof(DoubleInput), new PropertyMetadata(0.0, OnMaxDecimalPlacesChanged));
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace FloatingPointControls
         /// <summary>
         /// format string used to stringify the Value.
         /// </summary>
-        protected string FormatString { get; set; } = "F2";
+        protected string FormatString = "F2";
         /// <summary>
         /// Decimal seperator of the current culture
         /// </summary>
@@ -175,12 +175,11 @@ namespace FloatingPointControls
 
         protected static void OnMaxDecimalPlacesChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            int? newValue = e.NewValue as int?;
-            FieldInfo? fieldInfo = typeof(DoubleInput).GetField("_formatString");
-            if (newValue.HasValue && fieldInfo is not null)
-            {
-                fieldInfo.SetValue(d, $"F{newValue}");
-            }
+            double? newValue = e.NewValue as double?;
+            int? decNum = (int?)newValue ?? 2;
+            var type = typeof(DoubleInput);
+            FieldInfo? fieldInfo = type.GetField("FormatString", bindingAttr: BindingFlags.NonPublic | BindingFlags.Instance);
+            fieldInfo?.SetValue(d, $"F{decNum}");
         }
     }
 }

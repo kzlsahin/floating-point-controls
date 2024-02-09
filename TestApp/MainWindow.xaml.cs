@@ -16,10 +16,7 @@ namespace MarineParamCalculatorDataBindings
         {
             get
             {
-                if(_contextModel is null)
-                {
-                    _contextModel = this.Resources["ContextModel"] as Model;
-                }
+                _contextModel ??= this.Resources["ContextModel"] as Model;
                 return _contextModel;
             }
         }
@@ -39,13 +36,15 @@ namespace MarineParamCalculatorDataBindings
 
         private void WriteReultsToFile()
         {
-            if(ContextModel is null)
+            if (ContextModel is null)
             {
                 return;
             }
-            string path = "";
-            SaveFileDialog filedialog = new SaveFileDialog();
-            filedialog.Filter = "res | *.res";
+            string path;
+            SaveFileDialog filedialog = new()
+            {
+                Filter = "res | *.res"
+            };
             if (filedialog.ShowDialog() == true)
             {
                 path = filedialog.FileName;
@@ -53,7 +52,7 @@ namespace MarineParamCalculatorDataBindings
             else
             {
                 return;
-            }            
+            }
             if (string.IsNullOrWhiteSpace(path))
                 return;
 
@@ -63,9 +62,11 @@ namespace MarineParamCalculatorDataBindings
 
         private void ReadFile()
         {
-            string path = "";
-            OpenFileDialog filedialog = new OpenFileDialog();
-            filedialog.Filter = "res | *.res";
+            string path;
+            OpenFileDialog filedialog = new()
+            {
+                Filter = "res | *.res",
+            };
             if (filedialog.ShowDialog() == true)
             {
                 path = filedialog.FileName;

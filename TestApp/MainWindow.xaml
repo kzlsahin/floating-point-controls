@@ -141,6 +141,7 @@
                 <Label Grid.Column="0" Content="Δ =" Style="{StaticResource LabelStyle}"/>
                 <controls:DoubleInput 
                     Grid.Column="1" 
+                    MaxAllowedDecimalPlaces ="5"
                     Value="{Binding Delta,  Mode=TwoWay}"
                     Style="{StaticResource DoubleInputStyle}"/>
             </ItemsControl>
