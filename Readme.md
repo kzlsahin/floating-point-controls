@@ -3,6 +3,8 @@ NuGet Package
 
 [![NuGet Package Version](https://img.shields.io/nuget/v/FloatingPointControl?label=Latest%20Version)](https://www.nuget.org/packages/FloatingPointControl/)
 
+[Creating a Floating-Point Input Control in WPF with Dependency Properties](https://medium.com/@senturkmus/creating-floating-point-input-in-wpf-applications-using-custom-dependency-properties-754ef04dcc8c)
+
 There is no built-in control for floating-point inputs in Windows Presentation Foundation (WPF). Using TextBox for managing floating-point inputs can be a challange for a developer. If all you need is a floating-point input with seamless WPF compatibility, this package is for you.
 
 There is only a DoubleInput control currently.
