@@ -28,7 +28,11 @@ namespace FloatingPointControls
         /// This doesn't prevent user to exceed this limit. When value property is changed the output text will be affected by this value.
         /// Default value for format string is "F2"
         /// </remarks>
-        public int? MaxAllowedDecimalPlaces { get; set; }
+        public int? MaxAllowedDecimalPlaces {
+            get => (int?)GetValue(MaxDecimalPlacesProperty);
+            set => SetValue(MaxDecimalPlacesProperty, value);
+        }
+
 
         /// <summary>
         /// Sets boolean value to trim trailing zeros after the last meaningful decimal place or decimal seperator.
