@@ -28,3 +28,9 @@ There is only a DoubleInput control currently.
             Style="{StaticResource DoubleInputStyle}"
             MaxAllowedDecimalPlaces ="3"/>
 ```
+
+## How-To
+
+### Making Integer Control
+
+To make the control only accept integer values set ```MaxAllowedDecimalPlaces``` property to 0.
