@@ -120,6 +120,7 @@
                 <Label Grid.Column="0" Content="L =" Style="{StaticResource LabelStyle}"/>
                 <controls:DoubleInput 
                     Grid.Column="1" 
+                    MaxAllowedDecimalPlaces="0"
                     Value="{Binding L,  Mode=TwoWay}" 
                     Style="{StaticResource DoubleInputStyle}"/>
             </ItemsControl>

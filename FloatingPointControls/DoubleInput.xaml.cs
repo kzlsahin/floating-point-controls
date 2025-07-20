@@ -19,7 +19,7 @@ namespace FloatingPointControls
         DependencyProperty.Register("Value", typeof(double), typeof(DoubleInput), new PropertyMetadata(0.0, OnValuePropertyChanged));
 
         public static readonly DependencyProperty MaxDecimalPlacesProperty =
-        DependencyProperty.Register("MaxAllowedDecimalPlaces", typeof(double), typeof(DoubleInput), new PropertyMetadata(0.0, OnMaxDecimalPlacesChanged));
+        DependencyProperty.Register("MaxAllowedDecimalPlaces", typeof(int?), typeof(DoubleInput), new PropertyMetadata(2, OnMaxDecimalPlacesChanged));
 
         /// <summary>
         /// Sets maximum allowed decimal places of the controller that creates formatting string as "F.".
@@ -28,14 +28,19 @@ namespace FloatingPointControls
         /// This doesn't prevent user to exceed this limit. When value property is changed the output text will be affected by this value.
         /// Default value for format string is "F2"
         /// </remarks>
-        public int? MaxAllowedDecimalPlaces {
-            get => (int?)GetValue(MaxDecimalPlacesProperty);
-            set => SetValue(MaxDecimalPlacesProperty, value);
+        public int? MaxAllowedDecimalPlaces
+        {
+            get => _maxAllowedDecimalPlaces;
+            set
+            {
+                SetValue(MaxDecimalPlacesProperty, value);
+                _maxAllowedDecimalPlaces = value;
+            }
         }
-
+        private int? _maxAllowedDecimalPlaces = 2;
 
         /// <summary>
-        /// Sets boolean value to trim trailing zeros after the last meaningful decimal place or decimal seperator.
+        /// Sets boolean value to trim trailing zeros after the last meaningful decimal place or decimal separators.
         /// </summary>
         protected bool TrimTrailingZerosAfterDecimal = true;
         /// <summary>
@@ -125,7 +130,7 @@ namespace FloatingPointControls
             // Check if the entered text is a valid numeric value (allow '.' as well)
             char lastEntry = text[^1];
             return
-                (DecimalSeperator.Contains(lastEntry) && !Text.Contains(lastEntry))
+                (MaxAllowedDecimalPlaces > 0 && DecimalSeperator.Contains(lastEntry) && !Text.Contains(lastEntry))
                 || (Text.Length == 0 && lastEntry == '-')
                 || Char.IsDigit(lastEntry);
         }
@@ -179,11 +184,16 @@ namespace FloatingPointControls
 
         protected static void OnMaxDecimalPlacesChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            double? newValue = e.NewValue as double?;
-            int? decNum = (int?)newValue ?? 2;
+            int newValue = (int)(e.NewValue as int? ?? 2);
+            if(newValue < 0)
+            {
+                newValue = 0;
+            }
+            DoubleInput di = (DoubleInput)d;
+            di._maxAllowedDecimalPlaces = newValue;
             var type = typeof(DoubleInput);
             FieldInfo? fieldInfo = type.GetField("FormatString", bindingAttr: BindingFlags.NonPublic | BindingFlags.Instance);
-            fieldInfo?.SetValue(d, $"F{decNum}");
+            fieldInfo?.SetValue(d, $"F{newValue}");
         }
     }
 }

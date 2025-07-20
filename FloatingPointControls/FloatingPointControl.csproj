@@ -4,7 +4,7 @@
 		<RootNamespace>floating_point_controls</RootNamespace>
 		<Nullable>enable</Nullable>
 		<UseWPF>true</UseWPF>
-		<PackageOutputPath>C:\Users\msenturk\Documents\Pack</PackageOutputPath>
+		<PackageOutputPath>C:\Users\Mustafa\OneDrive\Belgeler</PackageOutputPath>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Version>1.0.3</Version>
 		<Deterministic>False</Deterministic>
