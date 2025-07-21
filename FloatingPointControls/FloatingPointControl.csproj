@@ -4,9 +4,9 @@
 		<RootNamespace>floating_point_controls</RootNamespace>
 		<Nullable>enable</Nullable>
 		<UseWPF>true</UseWPF>
-		<PackageOutputPath>C:\Users\Mustafa\OneDrive\Belgeler</PackageOutputPath>
+		<PackageOutputPath>.\Pack</PackageOutputPath>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-		<Version>1.0.3</Version>
+		<Version>1.0.4</Version>
 		<Deterministic>False</Deterministic>
 		<Description>WPF Floating-Point Input Controls library. Contains double value input controller only for now.</Description>
 		<PackageReadmeFile>Readme.md</PackageReadmeFile>
@@ -20,8 +20,8 @@
 		<Title>Floating-Point Controls - WPF</Title>
 		<Authors>kzlsahin</Authors>
 		<PackageProjectUrl>https://github.com/kzlsahin/floating-point-controls</PackageProjectUrl>
-		<PackageReleaseNotes>- MaxAllowedDecimalPlaces property is binded with dependency property.
-- Readme is updated</PackageReleaseNotes>
+		<PackageReleaseNotes>- The bug in the MaxAllowedDecimalPlaces (when its value was zero) property has been resolved.
+- When the value of MaxAllowedDecimalPlaces is zero, it no longer accepts the decimal separator character.</PackageReleaseNotes>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 	</PropertyGroup>
 	<ItemGroup>
