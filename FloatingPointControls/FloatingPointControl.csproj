@@ -24,7 +24,8 @@
 - The bug in the MaxAllowedDecimalPlaces (when its value was zero) property has been resolved.
 - When the value of MaxAllowedDecimalPlaces is zero, it no longer accepts the decimal separator character.
 1.0.5:
-- Problem of inline editing (transforming a positive number to negative) is fixed. Adding negative sign to text is handled correctly.</PackageReleaseNotes>
+- Problem of inline editing (transforming a positive number to negative) is fixed. Adding negative sign to text is handled correctly.
+- When the control loses focus and the text contains an invalid character sequence, both the displayed text and the bound value are reset to zero. </PackageReleaseNotes>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 	</PropertyGroup>
 	<ItemGroup>

@@ -22,6 +22,7 @@
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
                         </Grid>
                     </ItemsPanelTemplate>
@@ -106,8 +107,8 @@
                 <Button FontSize="12" Command="ApplicationCommands.Open">Open</Button>
             </ToolBar>
         </ToolBarTray>
-       
-        <ItemsControl Grid.Row="2" Style="{StaticResource GridRowStyle1}">
+
+        <ItemsControl Grid.Row="1" Style="{StaticResource GridRowStyle1}" Margin="0,27,0,129" Grid.RowSpan="3">
             <ItemsControl Grid.Row="0"  Style="{StaticResource GridColumnStyle1}">
                 <Label Grid.Column="0" Content="B =" Style="{StaticResource LabelStyle}"/>
                 <controls:DoubleInput 
@@ -146,6 +147,13 @@
                     Value="{Binding Delta,  Mode=TwoWay}"
                     Style="{StaticResource DoubleInputStyle}"/>
             </ItemsControl>
+            <ItemsControl Grid.Row="5"  Style="{StaticResource GridColumnStyle1}">
+                <Label Grid.Column="0" Content="d =" Style="{StaticResource LabelStyle}"/>
+                <controls:DoubleInput 
+                    Grid.Column="1" 
+                    MaxAllowedDecimalPlaces ="5"
+                    Style="{StaticResource DoubleInputStyle}"/>
+            </ItemsControl>
         </ItemsControl>
         <StackPanel Grid.Row="3">
             <ItemsControl Style="{StaticResource GridColumnStyle1}" >
@@ -169,7 +177,7 @@
                 <Label Grid.Column="1" Content="Displacement of the hull" Style="{StaticResource DescriptionStyle}"/>
             </ItemsControl>
             <Label>Take Notes!</Label>
-            <TextBox Background="Black" Foreground="Beige" Padding="2,4,2,4" IsEnabled="True"> </TextBox>
+            <TextBox Background="Black" Foreground="Beige" Padding="2,4,2,4" IsEnabled="True"></TextBox>
         </StackPanel>
     </Grid>
 </Window>

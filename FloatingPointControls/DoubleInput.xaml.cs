@@ -24,6 +24,8 @@ namespace FloatingPointControls
         public DoubleInput()
         {
             InitializeComponent();
+            this.LostFocus += DoubleInput_LostFocus;
+            Text = "0";
         }
 
         /// <summary>
@@ -149,15 +151,15 @@ namespace FloatingPointControls
             {
                 return;
             }
-            InTextInput = true;
             // Text Changed by user input
             // Check if the entered text is a valid numeric value
             if (double.TryParse(Text, out double val))
             {
+                InTextInput = true;
                 Value = val;
                 InputEntered?.Invoke(this, e);
+                InTextInput = false;
             }
-            InTextInput = false;
         }
         /// <summary>
         /// Updates Text property only if nTextInput is false.
@@ -198,6 +200,15 @@ namespace FloatingPointControls
             var type = typeof(DoubleInput);
             FieldInfo? fieldInfo = type.GetField("FormatString", bindingAttr: BindingFlags.NonPublic | BindingFlags.Instance);
             fieldInfo?.SetValue(d, $"F{newValue}");
+        }
+
+
+        private void DoubleInput_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (!double.TryParse(Text, out double val))
+            {
+                textBox.Text = "0";
+            }
         }
     }
 }
