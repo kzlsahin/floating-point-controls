@@ -21,6 +21,11 @@ namespace FloatingPointControls
         public static readonly DependencyProperty MaxDecimalPlacesProperty =
         DependencyProperty.Register("MaxAllowedDecimalPlaces", typeof(int?), typeof(DoubleInput), new PropertyMetadata(2, OnMaxDecimalPlacesChanged));
 
+        public DoubleInput()
+        {
+            InitializeComponent();
+        }
+
         /// <summary>
         /// Sets maximum allowed decimal places of the controller that creates formatting string as "F.".
         /// </summary>
@@ -59,10 +64,7 @@ namespace FloatingPointControls
         /// this control is handling TextInput event.
         /// </summary>
         protected bool InTextInput = false;
-        public DoubleInput()
-        {
-            InitializeComponent();
-        }
+
         /// <summary>
         /// When the text is changed and the text is parsable as Double.
         /// </summary>
@@ -107,7 +109,9 @@ namespace FloatingPointControls
         /// <param name="e"></param>
         protected void TextBox_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
         {
-            if (!IsCharacterAllowed(e.Text))
+            TextBox source = (TextBox)(e.OriginalSource);
+            var caretIndex = source.CaretIndex;
+            if (!IsCharacterAllowed(e.Text, caretIndex))
             {
                 e.Handled = true;
             }
@@ -125,14 +129,14 @@ namespace FloatingPointControls
         /// </summary>
         /// <param name="text"></param>
         /// <returns>true if character is allowed, false otherwise</returns>
-        protected bool IsCharacterAllowed(string text)
+        protected bool IsCharacterAllowed(string text, int caretIndex)
         {
             // Check if the entered text is a valid numeric value (allow '.' as well)
             char lastEntry = text[^1];
             return
-                (MaxAllowedDecimalPlaces > 0 && DecimalSeperator.Contains(lastEntry) && !Text.Contains(lastEntry))
-                || (Text.Length == 0 && lastEntry == '-')
-                || Char.IsDigit(lastEntry);
+                Char.IsDigit(lastEntry)
+                || lastEntry == '-' && !Text.StartsWith(lastEntry) && caretIndex == 0
+                || (MaxAllowedDecimalPlaces > 0 && DecimalSeperator.Contains(lastEntry) && !Text.Contains(lastEntry) && caretIndex > 0);
         }
         /// <summary>
         /// If not _inTextInput, updates Value according to parsed Text.
