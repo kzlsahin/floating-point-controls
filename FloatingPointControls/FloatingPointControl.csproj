@@ -6,7 +6,7 @@
 		<UseWPF>true</UseWPF>
 		<PackageOutputPath>.\Pack</PackageOutputPath>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-		<Version>1.0.5</Version>
+		<Version>1.0.6</Version>
 		<Deterministic>False</Deterministic>
 		<Description>WPF Floating-Point Input Controls library. Contains double value input controller only for now.</Description>
 		<PackageReadmeFile>Readme.md</PackageReadmeFile>
@@ -25,7 +25,9 @@
 - When the value of MaxAllowedDecimalPlaces is zero, it no longer accepts the decimal separator character.
 1.0.5:
 - Problem of inline editing (transforming a positive number to negative) is fixed. Adding negative sign to text is handled correctly.
-- When the control loses focus and the text contains an invalid character sequence, both the displayed text and the bound value are reset to zero. </PackageReleaseNotes>
+- When the control loses focus and the text contains an invalid character sequence, both the displayed text and the bound value are reset to zero. 
+1.0.6
+- The problem of trimming trailing zeros when the text has no decimal seperator is fixed.</PackageReleaseNotes>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 	</PropertyGroup>
 	<ItemGroup>
