@@ -172,7 +172,7 @@ namespace FloatingPointControls
             if (newValue.HasValue)
             {
                 string txt = newValue.Value.ToString(FormatString);
-                if (TrimTrailingZerosAfterDecimal)
+                if (TrimTrailingZerosAfterDecimal && MaxAllowedDecimalPlaces > 0 && txt.Contains(DecimalSeperator))
                 {
                     txt = txt.TrimEnd('0');
                 }
